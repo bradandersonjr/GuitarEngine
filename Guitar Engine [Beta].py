@@ -2713,6 +2713,10 @@ def guitarDimensions(design, fretNumber, scaleLength, nutLength, endLength, nutR
         bridgeLines = sketch3.sketchCurves.sketchLines;
         cavitybridgeLines = sketch3.sketchCurves.sketchLines;
         sketchPoints = sketch3.sketchPoints
+        # Create sketch point
+        point1 = adsk.core.Point3D.create((bridgeDistance+singleCoilWidth/2), 0, 0)
+        sketchPoint1 = sketchPoints.add(point1)
+        sketchPoint1.isFixed = True
 
         if pickupBridge == "Single-Coil":
         
@@ -2751,11 +2755,6 @@ def guitarDimensions(design, fretNumber, scaleLength, nutLength, endLength, nutR
 
             pickupBridgeAngle = bridgeLines.addByTwoPoints(adsk.core.Point3D.create(bridgeDistance, 0, 0), adsk.core.Point3D.create((bridgeDistance+singleCoilWidth), 0, 0))
             pickupBridgeAngle.isConstruction = True
-            
-            # Create sketch point
-            point1 = adsk.core.Point3D.create((bridgeDistance+singleCoilWidth/2), 0, 0)
-            sketchPoint1 = sketchPoints.add(point1)
-            sketchPoint1.isFixed = True
 
             # Constrain the Rectangle to stay rectangular
             constraints = sketch3.geometricConstraints
