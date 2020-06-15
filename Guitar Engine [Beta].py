@@ -432,7 +432,7 @@ class FretboardCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
                 pickupCavityMountLength = pickupCavityMountLengthAttrib.value
 
             pickupCavityMountTabWidth = str(defaultParameters.pickupCavityMountTabWidth * defaultParameters.userUnit)
-            pickupCavityMountTabWidthAttrib = design.attributes.itemByName('Fretboard', 'pickupCavityMountLength')
+            pickupCavityMountTabWidthAttrib = design.attributes.itemByName('Fretboard', 'pickupCavityMountTabWidth')
             if pickupCavityMountTabWidthAttrib:
                 pickupCavityMountTabWidth = pickupCavityMountTabWidthAttrib.value
 
@@ -1511,11 +1511,7 @@ def buildFretboard(design, fretNumber, scaleLength, nutLength, endLength, radius
         #Create an extend feature.
         extendFeature1 = extendFeatures.add(extendFeatureInput1)
         extendFeature1.name = 'Extend: Fret Projections'
-        # sketch12 = sketches.add(xyPlane)
-        # sketchArc2 = sketch12.sketchCurves.sketchArcs;
-        # fretWire = sketch12.sketchCurves.sketchLines;
-        # sketch12.name = 'Frets ' + ' [' + str(fretNumber) + ']'
-        # sketch12.isVisible = False
+
         #Create loop for fret spacing and creation
         fretSpacing = []
         for fret in range(1,int(fretNumber)+1):
@@ -1813,7 +1809,7 @@ def buildPickups(design, guitarLength, headstockLength, scaleLength, fretboardLe
             cavityNeckLines = sketch1.sketchCurves.sketchLines;
             # Get sketch points
             sketchPoints = sketch1.sketchPoints
-            sketch1.isComputeDeferred = False
+            sketch1.isComputeDeferred = True
             sketch1.areConstraintsShown = False
             sketch1.arePointsShown = False
             if pickupNeck == "Single-Coil":
@@ -1858,7 +1854,7 @@ def buildPickups(design, guitarLength, headstockLength, scaleLength, fretboardLe
             cavitymiddleLines = sketch2.sketchCurves.sketchLines;
             # Get sketch points
             sketchPoints = sketch2.sketchPoints
-            sketch2.isComputeDeferred = False
+            sketch2.isComputeDeferred = True
             sketch2.areConstraintsShown = False
             sketch2.arePointsShown = False
             if pickupMiddle == "Single-Coil":
@@ -1901,7 +1897,10 @@ def buildPickups(design, guitarLength, headstockLength, scaleLength, fretboardLe
         cavitybridgeLines = sketch3.sketchCurves.sketchLines;
         # Get sketch points
         sketchPoints = sketch3.sketchPoints
-        sketch3.isComputeDeferred = False
+        if createBlanks.value:
+            sketch3.isComputeDeferred = False
+        else:
+            sketch3.isComputeDeferred = True
         sketch3.areConstraintsShown = True
         sketch3.arePointsShown = False
         if pickupBridge == "Single-Coil":
