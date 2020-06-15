@@ -772,11 +772,11 @@ class FretboardCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             tabCmdInput5 = inputs.addTabCommandInput('info', 'Info')
             tab5ChildInputs = tabCmdInput5.children
 
-            message = '<div align="center"><font size="6"><br><b>Guitar Engine</b><br>by Brad Anderson Jr<br><a href="https://www.facebook.com/groups/Fusion360Luthiers/" style="text-decoration: none">Fusion 360 Luthiers Facebook Group.</font></a></div>'
+            message = '<div align="center"><font size="6"><br><b>Guitar Engine</b><br>by Brad Anderson Jr<br><br><a href="https://www.facebook.com/groups/Fusion360Luthiers/" style="text-decoration: none">Fusion 360 Luthiers Facebook Group</font></a></div>'
             tab5ChildInputs.addTextBoxCommandInput('fullWidth_textBox', '', message, 10, True)
 
-            message = '<div align="center">Please report any issues or concerns to the Facebook Group above.</div>'
-            tab5ChildInputs.addTextBoxCommandInput('fullWidth_textBox', '', message, 3, True)
+            message = '<div align="center"><font size="4">Please report any issues to the<br><a href="https://github.com/BradAndersonJr/GuitarEngine/" style="text-decoration: none">Guitar Engine Github Repository</font></a></div>'
+            tab5ChildInputs.addTextBoxCommandInput('fullWidth_textBox', '', message, 10, True)
 
             message = '<div align="center"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WP8D4HECT42G8&source=url" style="text-decoration: none">If you would like to support the development of <b>Guitar Engine</b><br> please follow this link. <b><i>Thank you!</b></i></a></div>'
             tab5ChildInputs.addTextBoxCommandInput('fullWidth_textBox', '', message, 3, True)
