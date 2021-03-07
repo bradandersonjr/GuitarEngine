@@ -82,13 +82,12 @@ class UIManager:
         self.addFloatValueControl('endRadius', 'End Radius', tabInputs)
 
         tabInputs.addTextBoxCommandInput('fullWidth_textBox', '', "<hr>", 1, True)
-
-        for fretNum in range(1,int((self.parameters.fretNumber))+2):
-            fretDistance = (float(self.parameters.scaleLength))-((float(self.parameters.scaleLength))/(2**(fretNum/12.0)))
-
-        self.parameters.fretboardLength = (math.ceil(float(fretDistance)*8)/8)
-
+        
+        #Fretboard length is calculated on change of fret number, we still want to show the value though.
         self.addFloatValueControl('fretboardLength', 'Fretboard Length', tabInputs)
+        UIElements.floatValueControls['fretboardLength'].isEnabled = False
+
+        self.addFloatValueControl('fretboardLengthOffset', 'Fretboard Length Offset', tabInputs)        
         self.addFloatValueControl('fretboardHeight', 'Fretboard Height', tabInputs)
         self.addFloatValueControl('bridgeStringSpacing', 'Bridge String Spacing', tabInputs)
         self.addFloatValueControl('nutStringSpacing', 'Nut String Spacing', tabInputs)
@@ -227,7 +226,16 @@ class UIManager:
 
     def onPickupBridgeChanged(self):        
         UIElements.floatSpinnerControls['bridgePickupAngle'].isVisible = (UIElements.dropdownControls['pickupBridge'].selectedItem.name == "Single-Coil")
-                
+
+    def recalculateFretboardLength(self):
+         
+        fretCount = UIElements.intSpinnerControls['fretNumber'].value + 1 #Leave a full frets worth of space at the end of the fretboard
+        scaleLength = UIElements.floatValueControls['scaleLength'].value
+
+        newFretboardLength = round(scaleLength - (scaleLength/(2**(fretCount/12))), 3) 
+
+        UIElements.floatValueControls['fretboardLength'].value = newFretboardLength
+
     def onGenerateOnlyFretboardChanged(self):
         if UIElements.boolValueControls['generateOnlyFretboard'].value:
             UIElements.boolValueControls['generateBlanks'].isEnabled = False

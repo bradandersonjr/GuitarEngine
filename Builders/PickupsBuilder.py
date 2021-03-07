@@ -19,7 +19,7 @@ class PickupsBuilder:
         guitarLength = parameters.guitarLength
         headstockLength = parameters.headstockLength
         scaleLength = parameters.scaleLength
-        fretboardLength = parameters.fretboardLength
+        fretboardLength = parameters.fretboardLength + parameters.fretboardLengthOffset
         neckSpacing = parameters.neckSpacing
         bridgeSpacing = parameters.bridgeSpacing
         singleCoilLength = parameters.singleCoilLength

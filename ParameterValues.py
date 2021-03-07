@@ -22,6 +22,7 @@ class ParameterValues:
     #Fretboard Tab
     radius: float = 18.415
     fretboardLength: float = 46.83
+    fretboardLengthOffset: float = 0
     nutRadius: float = 30.48
     endRadius: float = 40.64
     fretboardHeight: float = 0.64

@@ -141,7 +141,10 @@ class GuitarEngineCommandExecuteHandler(adsk.core.CommandEventHandler):
         try:
             eventArgs = adsk.core.CommandEventArgs.cast(args)
             app = adsk.core.Application.get()
-            ui = app.userInterface            
+            ui = app.userInterface    
+
+            # Make sure the fretboard length value is correct as multiple undo/redo's can screw it up
+            uiManager.recalculateFretboardLength()        
 
             designParameters = DesignParameters(app)
 
@@ -229,6 +232,8 @@ class GuitarEngineInputChangedCommandHandler(adsk.core.InputChangedEventHandler)
         elif (changedInput.id == 'pickupBridge'):
             uiManager.onPickupBridgeChanged()
         elif (changedInput.id == 'generateOnlyFretboard'):
-            uiManager.onGenerateOnlyFretboardChanged()            
+            uiManager.onGenerateOnlyFretboardChanged()
+        elif (changedInput.id == 'fretNumber' or changedInput.id == 'scaleLength'):
+            uiManager.recalculateFretboardLength()
         else:
             pass

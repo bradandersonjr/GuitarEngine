@@ -43,7 +43,7 @@ class DimensionsBuilder:
         machinePostHoleDiameter = parameters.machinePostHoleDiameter
         machinePostDiameter = parameters.machinePostDiameter
         nutStringSpacing = parameters.nutStringSpacing
-        fretboardLength = parameters.fretboardLength
+        fretboardLength = parameters.fretboardLength + parameters.fretboardLengthOffset
         headstockStyle = parameters.headstockStyle
         neckSpacing = parameters.neckSpacing
         bridgeSpacing = parameters.bridgeSpacing

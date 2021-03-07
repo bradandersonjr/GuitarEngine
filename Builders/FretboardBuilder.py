@@ -36,7 +36,7 @@ class FretboardBuilder:
         markerSpacing = parameters.markerSpacing
         guitarLength = parameters.guitarLength
         headstockLength = parameters.headstockLength
-        fretboardLength = parameters.fretboardLength
+        fretboardLength = parameters.fretboardLength + parameters.fretboardLengthOffset
         firstFretThickness = parameters.firstFretThickness
         twelfthfretThickness = parameters.twelfthfretThickness
         neckThickness = parameters.neckThickness
