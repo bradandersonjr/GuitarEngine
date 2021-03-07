@@ -159,9 +159,11 @@ class DimensionsBuilder:
 
         for fret in range(int(fretNumber)+1):
             fretDistance = scaleLength-(scaleLength/(2**(fret/12.0)))
+
             fretLength = nutLength + 2*sqrt(((fretDistance/(math.cos(math.radians(math.acos((L**2+(sqrt((((endLength-nutLength)/2)**2) +(L**2)))**2-
                                     ((endLength-nutLength)/2)**2)/(2*L*(sqrt((((endLength-nutLength)/2)**2)+(L**2)))))*((180)/math.pi)))))**2)
                                     -(fretDistance**2))
+                                    
             dimensioning = dimensionFrets.addByTwoPoints(adsk.core.Point3D.create((nutDistance-fretDistance), (fretLength/2), 0),
                                                          adsk.core.Point3D.create((nutDistance-fretDistance), (-fretLength/2), 0))
             dimensioning.isConstruction = True

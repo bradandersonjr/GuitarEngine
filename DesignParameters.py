@@ -27,12 +27,18 @@ class DesignParameters:
             else:
                 setattr(values, key, float(control.value))
 
+        self.calculateGuitarLength(values)
+
         for key, control in UIElements.dropdownControls.items():
             setattr(values, key, control.selectedItem.name)
 
         paramJson = simplejson.dumps(values.__dict__, use_decimal=True)
 
         self.design.attributes.add("guitarEngine", "parameterValues", paramJson)
+
+    def calculateGuitarLength(self, values: ParameterValues):
+
+        values.guitarLength = (values.bodyLength + values.fretboardLength + values.headstockLength) - values.neckPocketLength
 
     def getStoredParameters(self):
 

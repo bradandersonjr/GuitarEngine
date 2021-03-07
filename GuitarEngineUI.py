@@ -54,7 +54,7 @@ class UIManager:
         self.addIntSpinnerControl('stringCount', 'Number of Strings', 4, 12, tabInputs)
         self.addIntSpinnerControl('fretNumber', 'Number of Frets', 12, 36, tabInputs)
         self.addFloatValueControl('scaleLength', 'Scale Length', tabInputs)
-        self.addFloatValueControl('guitarLength', 'Guitar Length', tabInputs)
+        self.addFloatValueControl('neckPocketLength', 'Neck Pocket Length', tabInputs)
         self.addFloatValueControl('bodyLength', 'Body Length', tabInputs)
         self.addFloatValueControl('bodyWidth', 'Body Width', tabInputs)
         self.addFloatValueControl('bodyThickness', 'Body Thickness', tabInputs)

@@ -8,6 +8,7 @@ class ParameterValues:
     fretNumber: int = 22
     scaleLength: float = 64.77
     guitarLength: float = 100.3
+    neckPocketLength: float = 8
     bodyWidth: float = 31.75
     bodyThickness: float = 4.5
     bodyLength: float = 42.545
