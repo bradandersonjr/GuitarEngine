@@ -49,7 +49,6 @@ class UIManager:
         tabInputs = UIElements.tabGeneral.children
 
         imgInput = tabInputs.addImageCommandInput('fretboardImage', '', 'Resources/guitarEngine.png')
-        imgInput.isFullWidth = True
 
         self.addIntSpinnerControl('stringCount', 'Number of Strings', 4, 12, tabInputs)
         self.addIntSpinnerControl('fretNumber', 'Number of Frets', 12, 36, tabInputs)

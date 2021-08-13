@@ -1,5 +1,6 @@
 *.pyc
 __pycache__
+.env
 .vscode/*
 !.vscode/tasks.json
 !.vscode/launch.json

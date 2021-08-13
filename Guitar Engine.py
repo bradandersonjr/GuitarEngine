@@ -89,8 +89,8 @@ class GuitarEngineClickCommandHandler(adsk.core.CommandCreatedEventHandler):
             cmd.isExecutedWhenPreEmpted = False
 
             cmd.helpFile = 'help.html'
-            cmd.setDialogInitialSize(300, 800)
-            cmd.setDialogMinimumSize(300, 800)
+            cmd.setDialogInitialSize(310, 800)
+            cmd.setDialogMinimumSize(310, 800)
             cmd.okButtonText = 'Create Guitar'
 
             global parameters
@@ -104,15 +104,15 @@ class GuitarEngineClickCommandHandler(adsk.core.CommandCreatedEventHandler):
                 if (parameters is None):
                     parameters = ParameterValues()            
 
-                    defaultUnits = design.unitsManager.defaultLengthUnits
+            defaultUnits = design.unitsManager.defaultLengthUnits
 
-                    # Determine whether to use inches or millimeters as the initial default.
-                    if defaultUnits == 'in' or defaultUnits == 'ft':
-                        parameters.units = 'in'
-                    else:
-                        parameters.units = 'mm'
+            if defaultUnits == 'in' or defaultUnits == 'ft':
+                parameters.units = 'in'
+            else:
+                parameters.units = 'mm'
             
             global uiManager
+
             uiManager = UIManager(app, ui, parameters)
 
             uiManager.createUIElements(cmd.commandInputs)
