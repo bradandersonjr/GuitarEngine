@@ -76,7 +76,7 @@ def run(context):
         ui  = app.userInterface
 
         # Create a command definition and add a button to the CREATE panel.
-        cmdDef = ui.commandDefinitions.addButtonDefinition('adskFretboardPythonAddIn', 'Guitar Engine [Beta] (v2020.06.13)', 'Creates a fretboard component\n\n', 'Resources/Icons')
+        cmdDef = ui.commandDefinitions.addButtonDefinition('adskFretboardPythonAddIn', 'Guitar Engine [Beta] (v2023.11.26)', 'Creates a fretboard component\n\n', 'Resources/Icons')
         createPanel = ui.allToolbarPanels.itemById('SolidCreatePanel')
         fretboardButton = createPanel.controls.addCommand(cmdDef)
 
@@ -89,7 +89,7 @@ def run(context):
         fretboardButton.isPromotedByDefault = True
         fretboardButton.isPromoted = True
         if context['IsApplicationStartup'] == False:
-            ui.messageBox('<b>Guitar Engine [Beta] (v2020.06.13)</b> has been added to the <i>SOLID</i> tab of the <i>DESIGN</i> workspace.<br><br><div align="center"><b>This is a beta version.</div>')
+            ui.messageBox('<b>Guitar Engine [Beta] (v2023.11.26)</b> has been added to the <i>SOLID</i> tab of the <i>DESIGN</i> workspace.<br><br><div align="center"><b>This is a beta version.</div>')
 
     except:
         if ui:
@@ -1486,23 +1486,19 @@ def buildFretboard(design, fretNumber, scaleLength, nutLength, endLength, radius
         offsetFeature = fretboardComp.features.offsetFeatures
         offsetInput = offsetFeature.createInput(inputEntities, adsk.core.ValueInput.createByReal(-tangDepth),
                                                  adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
+        
         #Get the surface body.
-        extrudeFeature = offsetFeature.add(offsetInput)
-        extrudeFeature.name = 'Offset: Fret Projections'
-        offSurf = extrudeFeature.bodies.item(0)
-        offSurf.name = 'Reference for fret cuts'
-        offSurf.isVisible = False
+        offsetFeature = offsetFeature.add(offsetInput)
+        offsetFeature.name = 'Offset: Fret Projections'
+        offSurf: adsk.fusion.BRepFace = offsetFeature.faces.item(0)
+        offSurf.body.name = 'Reference for fret cuts'
+        offSurf.body.isVisible = False
+
         #Get an edge from surface, and add it to object collection.
-        extend = offSurf.edges
-        ext1 = extend.item(0)
-        ext2 = extend.item(1)
-        ext3 = extend.item(2)
-        ext4 = extend.item(3)
         inputEdges = adsk.core.ObjectCollection.create()
-        inputEdges.add(ext1)
-        inputEdges.add(ext2)
-        inputEdges.add(ext3)
-        inputEdges.add(ext4)
+        for edge in offSurf.edges:
+            inputEdges.add(edge)
+
         #Define a distance to extend.
         distance = adsk.core.ValueInput.createByString('0.5 in')
         #Create an extend input to be able to define the input needed for an extend.
@@ -1580,7 +1576,7 @@ def buildFretboard(design, fretNumber, scaleLength, nutLength, endLength, radius
             pass
         # Extrude Sample 4: Create an extrusion that goes from the profile plane to a specified entity.
         extrudeInput1 = extrudes.createInput(profs, adsk.fusion.FeatureOperations.CutFeatureOperation)
-        extentToEntity = adsk.fusion.ToEntityExtentDefinition.create(extrudeFeature.faces.item(0), True)
+        extentToEntity = adsk.fusion.ToEntityExtentDefinition.create(extendFeature1.faces.item(0), True)
         # Set the one side extent with the to-entity-extent-definition, and with a taper angle of 0 degree
         extrudeInput1.setOneSideExtent(extentToEntity, adsk.fusion.ExtentDirections.PositiveExtentDirection)
         #Extrusion for adding material to the nut-end of the fretboard
@@ -1925,13 +1921,13 @@ def buildPickups(design, guitarLength, headstockLength, scaleLength, fretboardLe
             cavityBridgeFillet4 = sketch3.sketchCurves.sketchArcs.addFillet(cavityBridge1[3], cavityBridge1[3].endSketchPoint.geometry, cavityBridge1[0], cavityBridge1[0].startSketchPoint.geometry, singleCoilWidth/2)
             # Constrain the Rectangle to stay rectangular
             constraints = sketch3.geometricConstraints
-            constraints.addMidPoint(sketchPoint1, bridgeLines.item(4))
-            constraints.addMidPoint(sketchPoint1, bridgeLines.item(5))
-            constraints.addMidPoint(bridgeLines.item(5).startSketchPoint, bridgeLines.item(3))
-            constraints.addMidPoint(bridgeLines.item(5).endSketchPoint, bridgeLines.item(1))
-            constraints.addMidPoint(bridgeLines.item(5).startSketchPoint, cavitybridgeLines.item(9))
-            constraints.addMidPoint(bridgeLines.item(5).endSketchPoint, cavitybridgeLines.item(7))
-            constraints.addPerpendicular(bridgeLines.item(5), bridgeLines.item(4))
+            constraints.addMidPoint(sketchPoint1, bridgeLines.item(2))
+            constraints.addMidPoint(sketchPoint1, bridgeLines.item(3))
+            constraints.addMidPoint(bridgeLines.item(3).startSketchPoint, bridgeLines.item(1))
+            constraints.addMidPoint(bridgeLines.item(3).endSketchPoint, bridgeLines.item(0))
+            constraints.addMidPoint(bridgeLines.item(3).startSketchPoint, cavitybridgeLines.item(5))
+            constraints.addMidPoint(bridgeLines.item(3).endSketchPoint, cavitybridgeLines.item(4))
+            constraints.addPerpendicular(bridgeLines.item(3), bridgeLines.item(2))
             all = adsk.core.ObjectCollection.create()
             for curves in sketch3.sketchCurves:
                 all.add(curves)
@@ -2411,26 +2407,20 @@ def guitarDimensions(design, fretNumber, scaleLength, nutLength, endLength, nutR
             pickupBridgeAngle.isConstruction = True
             # Constrain the Rectangle to stay rectangular
             constraints = sketch3.geometricConstraints
-            constraints.addMidPoint(sketchPoint1, bridgeLines.item(22))
-            constraints.addMidPoint(sketchPoint1, bridgeLines.item(27))
-            constraints.addMidPoint(bridgeLines.item(27).startSketchPoint, bridgeLines.item(19))
-            constraints.addMidPoint(bridgeLines.item(27).endSketchPoint, bridgeLines.item(21))
-            constraints.addMidPoint(bridgeLines.item(27).startSketchPoint, cavitybridgeLines.item(24))
-            constraints.addMidPoint(bridgeLines.item(27).endSketchPoint, cavitybridgeLines.item(26))
-            constraints.addPerpendicular(bridgeLines.item(27), bridgeLines.item(22))
-            # all = adsk.core.ObjectCollection.create()
-            # for lines in range(bridgeLines[19:]):
-            #     all.add(lines)
+            constraints.addMidPoint(sketchPoint1, bridgeLines.item(12))
+            constraints.addMidPoint(sketchPoint1, bridgeLines.item(15))
+            constraints.addMidPoint(bridgeLines.item(15).startSketchPoint, bridgeLines.item(11))
+            constraints.addMidPoint(bridgeLines.item(15).endSketchPoint, bridgeLines.item(10))
+            constraints.addMidPoint(bridgeLines.item(15).startSketchPoint, cavitybridgeLines.item(14))
+            constraints.addMidPoint(bridgeLines.item(15).endSketchPoint, cavitybridgeLines.item(13))
+            constraints.addPerpendicular(bridgeLines.item(15), bridgeLines.item(12))
             all = adsk.core.ObjectCollection.create()
-            all.add(bridgeLines.item(19))
-            all.add(bridgeLines.item(20))
-            all.add(bridgeLines.item(21))
-            all.add(bridgeLines.item(22))
-            all.add(bridgeLines.item(23))
-            all.add(bridgeLines.item(24))
-            all.add(bridgeLines.item(25))
-            all.add(bridgeLines.item(26))
-            all.add(bridgeLines.item(27))
+            all.add(bridgeLines.item(10))
+            all.add(bridgeLines.item(11))
+            all.add(bridgeLines.item(12))
+            all.add(bridgeLines.item(13))
+            all.add(bridgeLines.item(14))
+            all.add(bridgeLines.item(15))
             all.add(sketchPoint1)
             normal = sketch3.xDirection.crossProduct(sketch3.yDirection)
             normal.transformBy(sketch3.transform)
@@ -2500,7 +2490,7 @@ def guitarDimensions(design, fretNumber, scaleLength, nutLength, endLength, nutR
             pickupGapDims1 = sketch3.sketchDimensions.addDistanceDimension(pickupNeck2.endSketchPoint, sketchPoint1, adsk.fusion.DimensionOrientations.HorizontalDimensionOrientation, adsk.core.Point3D.create(bridgeDistance + (neckDistance - bridgeDistance)/2, 7, 0), False);
             pickupGapDims2 = sketch3.sketchDimensions.addDistanceDimension(pickupNeck2.endSketchPoint, pickupMiddle2.endSketchPoint, adsk.fusion.DimensionOrientations.HorizontalDimensionOrientation, adsk.core.Point3D.create(middleDistance + (neckDistance - middleDistance)/2, 6, 0), False);
             pickupGapDims2 = sketch3.sketchDimensions.addDistanceDimension(pickupMiddle2.endSketchPoint, sketchPoint1, adsk.fusion.DimensionOrientations.HorizontalDimensionOrientation, adsk.core.Point3D.create(bridgeDistance + (middleDistance - bridgeDistance)/2, 6, 0), False);
-        pickupDims1 = sketch3.sketchDimensions.addDistanceDimension(pickupBridge1[0].startSketchPoint, pickupBridge1[2].endSketchPoint, adsk.fusion.DimensionOrientations.VerticalDimensionOrientation, adsk.core.Point3D.create(bridgeDistance - 4, 0, 0), False);
+        # pickupDims1 = sketch3.sketchDimensions.addDistanceDimension(pickupBridge1[0].startSketchPoint, pickupBridge1[2].endSketchPoint, adsk.fusion.DimensionOrientations.VerticalDimensionOrientation, adsk.core.Point3D.create(bridgeDistance - 4, 0, 0), False);
         pickupDims2 = sketch3.sketchDimensions.addDistanceDimension(pickupBridge2.endSketchPoint, pickupBridge2.startSketchPoint, adsk.fusion.DimensionOrientations.VerticalDimensionOrientation, adsk.core.Point3D.create(bridgeDistance - 5, 0, 0), False);
         #Centers the camera to fit the entire fretboard
         cam = app.activeViewport.camera
