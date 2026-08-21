@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+
+# Claude Code local session settings
+.claude/
+
+# Fusion regenerates these for VS Code (absolute interpreter
+# paths, one machine only). Nothing reads them at runtime.
+.env
+.vscode/
