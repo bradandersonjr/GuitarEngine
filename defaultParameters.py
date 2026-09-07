@@ -1,108 +1,70 @@
-### Modify the values to what you'd like your values to default to each time you use Guitar Engine. ###
+"""Backward-compatible wrapper for default parameters.
 
-''' After making any changes you must reinitialize Guitar Engine by stopping [Stop] and restarting [Run]
-    it within the Scripts and Add-in's window.'''
+Users can modify values here and they will be picked up by Guitar Engine.
+After making changes, restart the add-in via Scripts and Add-ins window.
+
+The canonical defaults are now in guitar_engine/config.py (GuitarDefaults).
+This file provides the legacy defaultParameters class interface.
+"""
+
+from .guitar_engine.config import DEFAULTS
+
 
 class defaultParameters:
+    """Default parameter values for Guitar Engine.
 
-    ''' This defines the unit of measure for the following values.  Everything is currently set for inches.
-        Comment out the line (placing a " # " at the beginning of the line) you do not wish to use and
-        uncomment the unit you do.  Only one userUnit must be valid!!'''
+    Unit of measure for length values:
+      userUnit = 2.54  -> Inches (default)
+      userUnit = 0.1   -> Millimeters
+      userUnit = 1     -> Centimeters
+    """
 
-    userUnit = 2.54 #This sets the units to Inches.
-    # userUnit = 1/10 #This sets the units to Millimeters.
-    # userUnit = 1 #This sets the units to Centimeters.
+    userUnit = DEFAULTS.user_unit
 
-    scaleLength = 25.5
-
-    fretNumber = 22
-
-    nutLength = 1.6527
-
-    endLength = 2.1875
-
-    radius = 7.25
-
-    nutRadius = 10.0
-
-    endRadius = 16.0
-
-    fretboardHeight = 0.25
-
-    filletRadius = 0.2
-
-    endCurve = 10.0
-
-    tangWidth = 0.023
-
-    tangDepth = 0.073
-
-    blindFrets = 0.0625
-
-    nutSlotWidth = 0.127
-
-    nutSlotDepth = 0.1
-
-    markerDiameter = 0.1
-
-    markerDepth = 0.05
-
-    markerSpacing = 0.875
-
-    guitarLength = 38.5
-
-    bodyWidth = 12.5
-
-    bodyThickness = 1.75
-
-    bodyLength = 16.75
-
-    firstFretThickness = 0.8
-
-    twelfthfretThickness = 0.85
-
-    neckThickness = 1.0
-
-    headstockLength = 7.5
-
-    headstockWidth = 3.5
-
-    headstockThickness = 0.5625
-
-    bridgeStringSpacing = 2.08
-
-    nutStringSpacing = 1.388
-
-    nutToPost = 1.5
-
-    stringCount = 6
-
-    machinePostHoleDiameter = 0.4
-
-    machinePostDiameter = 0.2
-
-    machinePostHoleSpacing = 1.0
-
-    neckSpacing = 0.25
-
-    bridgeSpacing = 0.5
-
-    singleCoilLength = 2.75
-
-    singleCoilWidth = 0.7
-
-    singleCoilDepth = 1
-
-    humbuckerLength = 2.75
-
-    humbuckerWidth = 1.5
-
-    humbuckerDepth = 1
-
-    humbuckerFillet = 0.125
-
-    pickupCavityMountLength = 3.28
-
-    pickupCavityMountTabWidth = 0.5
-
-    bridgePickupAngle = 10
+    scaleLength = DEFAULTS.scale_length
+    fretNumber = DEFAULTS.fret_number
+    nutLength = DEFAULTS.nut_length
+    endLength = DEFAULTS.end_length
+    radius = DEFAULTS.radius
+    nutRadius = DEFAULTS.nut_radius
+    endRadius = DEFAULTS.end_radius
+    fretboardHeight = DEFAULTS.fretboard_height
+    filletRadius = DEFAULTS.fillet_radius
+    endCurve = DEFAULTS.end_curve
+    tangWidth = DEFAULTS.tang_width
+    tangDepth = DEFAULTS.tang_depth
+    blindFrets = DEFAULTS.blind_frets
+    nutSlotWidth = DEFAULTS.nut_slot_width
+    nutSlotDepth = DEFAULTS.nut_slot_depth
+    markerDiameter = DEFAULTS.marker_diameter
+    markerDepth = DEFAULTS.marker_depth
+    markerSpacing = DEFAULTS.marker_spacing
+    guitarLength = DEFAULTS.guitar_length
+    bodyWidth = DEFAULTS.body_width
+    bodyThickness = DEFAULTS.body_thickness
+    bodyLength = DEFAULTS.body_length
+    firstFretThickness = DEFAULTS.first_fret_thickness
+    twelfthfretThickness = DEFAULTS.twelfth_fret_thickness
+    neckThickness = DEFAULTS.neck_thickness
+    headstockLength = DEFAULTS.headstock_length
+    headstockWidth = DEFAULTS.headstock_width
+    headstockThickness = DEFAULTS.headstock_thickness
+    bridgeStringSpacing = DEFAULTS.bridge_string_spacing
+    nutStringSpacing = DEFAULTS.nut_string_spacing
+    nutToPost = DEFAULTS.nut_to_post
+    stringCount = DEFAULTS.string_count
+    machinePostHoleDiameter = DEFAULTS.machine_post_hole_diameter
+    machinePostDiameter = DEFAULTS.machine_post_diameter
+    machinePostHoleSpacing = DEFAULTS.machine_post_hole_spacing
+    neckSpacing = DEFAULTS.neck_spacing
+    bridgeSpacing = DEFAULTS.bridge_spacing
+    singleCoilLength = DEFAULTS.single_coil_length
+    singleCoilWidth = DEFAULTS.single_coil_width
+    singleCoilDepth = DEFAULTS.single_coil_depth
+    humbuckerLength = DEFAULTS.humbucker_length
+    humbuckerWidth = DEFAULTS.humbucker_width
+    humbuckerDepth = DEFAULTS.humbucker_depth
+    humbuckerFillet = DEFAULTS.humbucker_fillet
+    pickupCavityMountLength = DEFAULTS.pickup_cavity_mount_length
+    pickupCavityMountTabWidth = DEFAULTS.pickup_cavity_mount_tab_width
+    bridgePickupAngle = DEFAULTS.bridge_pickup_angle

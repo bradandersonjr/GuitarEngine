@@ -1,0 +1,8 @@
+ADDIN_ID = 'adskGuitarEnginePythonAddIn'
+ADDIN_NAME = 'Guitar Engine'
+ADDIN_VERSION = 'v1.0.0'
+PANEL_ID = 'SolidCreatePanel'
+ICON_PATH = 'Resources/Icons'
+IMAGE_PATH = 'Resources/guitarEngine.png'
+ATTRIBUTE_GROUP_FRETBOARD = 'Fretboard'
+ATTRIBUTE_GROUP_PICKUPS = 'pickups'

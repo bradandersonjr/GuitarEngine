@@ -1,4 +1,4 @@
-# ![](./resources/32x32.png) Guitar Engine
+# Guitar Engine
 
 This is an [Autodesk Fusion 360](http://fusion360.autodesk.com/) add-in for creating a customized guitar fretboard.
 
